@@ -1,46 +1,40 @@
 ---
 name: knowledge-shifu
-description: Use when the user asks for project-specific knowledge (architecture, conventions, workflows, "where is X", or "how does X work") and the project has lots of docs; apply progressive disclosure to load only the minimum needed context.
+description: Use when the user asks project-specific questions ("where is X", "how does X work", architecture, conventions, workflows) and the project has lots of docs.
 ---
 
 # Knowledge Shifu
 
-## Core Rule (Progressive Disclosure)
+## Contract
 
-- Always start at `docs/L1-index.md`.
-- Then load at most **2** files from `docs/L2/`.
-- Load `docs/L3/` only if an L2 doc explicitly points to a specific L3 file.
-- Never read or summarize the entire docs tree.
+- Start at `.opencode/knowledge-shifu/docs/L1-index.md`.
+- Pick L2 files only via links in `.opencode/knowledge-shifu/docs/L1-index.md`.
+- Read 1-2 files in `.opencode/knowledge-shifu/docs/L2/` (max 2 total).
+- Read `.opencode/knowledge-shifu/docs/L3/<topic>.md` only when an L2 guide links to that exact file.
+- Never scan, read, or summarize the entire docs tree.
+- Stop as soon as you can point to the source of truth + the relevant rules/constraints.
 
-## Operating Procedure
+## Workflow
 
-1. Read `docs/L1-index.md` to identify the most relevant domain.
-2. Read 1-2 matching domain guides in `docs/L2/`.
-3. If needed, follow explicit L2 links into `docs/L3/`.
-4. Answer using only what you verified from loaded docs; if the docs don't say it, say what is missing and what you would read next.
+1. Read `.opencode/knowledge-shifu/docs/L1-index.md` and pick the smallest matching domain.
+2. Read up to 2 L2 guides from `.opencode/knowledge-shifu/docs/L2/`.
+3. Only if an L2 guide links to an L3 path, read that exact `.opencode/knowledge-shifu/docs/L3/<topic>.md`.
+4. Answer only from what you loaded. If missing, name the next single doc path you would load and why.
 
-## Knowledge Base Lifecycle (Create / Update / Refactor)
+## Fast / Ambiguous Requests
 
-- If the user asks to create a knowledge base from scratch, update it after changes, or refactor bloat/contradictions, follow `docs/L2/knowledge-base.md`.
-- Keep `docs/L1-index.md` index-only: links + keywords + routing, no detailed rules.
-- The knowledge base is this Skill's `docs/` only; do not rely on project-level docs files for this.
-- Do not invent `docs/` paths. Only reference:
-  - `docs/L1-index.md`
-  - `docs/L2/*.md` files that already exist (or that you create and add to `docs/L1-index.md`)
-  - flat `docs/L3/<topic>.md` files, only when an L2 guide links to them.
+- Fast: still read `.opencode/knowledge-shifu/docs/L1-index.md` + 1 L2 before acting.
+- Ambiguous: reduce scope via L1 domain selection; do not expand reading.
 
-## Pressure Handling
+## Knowledge Base Maintenance
 
-- If asked to go fast: still do step 1 + read **one** L2 guide before acting.
-- If the request is broad/ambiguous: scope it by selecting the smallest domain(s) from L1, not by expanding reading.
-
-## Stop Conditions
-
-- Stop reading as soon as you can answer: (a) where the source of truth is, and (b) the rules/constraints.
-- If you cannot answer after 2 L2 docs: list the next single doc you would load (by exact path) and why.
+- Create/update/refactor the project knowledge base: follow `.opencode/knowledge-shifu/docs/L2/knowledge-base.md`.
+- Keep `.opencode/knowledge-shifu/docs/L1-index.md` index-only (routing only; no detailed rules).
+- Write KB docs in the project directory under `.opencode/knowledge-shifu/docs/` (not inside the global skill installation).
+- Do not invent KB paths.
 
 ## Common Mistakes
 
-- Reading many docs "just in case".
-- Making claims that aren't in the loaded docs.
-- Duplicating detailed rules into `docs/L1-index.md` instead of linking.
+- Over-reading "just in case".
+- Stating rules not present in the loaded docs.
+- Copying L2/L3 details into `.opencode/knowledge-shifu/docs/L1-index.md`.
