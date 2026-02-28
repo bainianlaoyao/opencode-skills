@@ -23,6 +23,11 @@ description: Use when the user asks for project-specific knowledge (architecture
 
 - If the user asks to create a knowledge base from scratch, update it after changes, or refactor bloat/contradictions, follow `docs/L2/knowledge-base.md`.
 - Keep `docs/L1-index.md` index-only: links + keywords + routing, no detailed rules.
+- The knowledge base is this Skill's `docs/` only; do not rely on project-level docs files for this.
+- Do not invent `docs/` paths. Only reference:
+  - `docs/L1-index.md`
+  - `docs/L2/*.md` files that already exist (or that you create and add to `docs/L1-index.md`)
+  - flat `docs/L3/<topic>.md` files, only when an L2 guide links to them.
 
 ## Pressure Handling
 
