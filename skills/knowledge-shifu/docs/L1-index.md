@@ -1,5 +1,7 @@
 # L1 Index (Always Read First)
 
+Rule: this file is index-only (links + keywords + routing). No detailed rules.
+
 Purpose: route to the smallest set of documents needed for a task.
 
 ## Domains (pick 1)
