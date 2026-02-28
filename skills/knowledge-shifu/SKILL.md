@@ -19,6 +19,11 @@ description: Use when the user asks for project-specific knowledge (architecture
 3. If needed, follow explicit L2 links into `docs/L3/`.
 4. Answer using only what you verified from loaded docs; if the docs don't say it, say what is missing and what you would read next.
 
+## Knowledge Base Lifecycle (Create / Update / Refactor)
+
+- If the user asks to create a knowledge base from scratch, update it after changes, or refactor bloat/contradictions, follow `docs/L2/knowledge-base.md`.
+- Keep `docs/L1-index.md` index-only: links + keywords + routing, no detailed rules.
+
 ## Pressure Handling
 
 - If asked to go fast: still do step 1 + read **one** L2 guide before acting.

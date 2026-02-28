@@ -9,6 +9,7 @@ Purpose: route to the smallest set of documents needed for a task.
 - Coding conventions / style rules -> `docs/L2/conventions.md`
 - Auth / security model -> `docs/L2/auth.md`
 - API contracts / error handling -> `docs/L2/api-contracts.md`
+- Knowledge base lifecycle (create/update/refactor) -> `docs/L2/knowledge-base.md`
 
 ## Keywords -> Domain
 
@@ -16,3 +17,4 @@ Purpose: route to the smallest set of documents needed for a task.
 - "rules" / "conventions" -> `docs/L2/conventions.md`
 - "how does auth work" -> `docs/L2/auth.md`
 - "error handling" / "status code" -> `docs/L2/api-contracts.md`
+- "create knowledge base" / "update docs" / "refactor knowledge base" -> `docs/L2/knowledge-base.md`
