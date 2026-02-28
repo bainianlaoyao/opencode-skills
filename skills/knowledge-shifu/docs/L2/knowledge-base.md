@@ -4,35 +4,37 @@
 
 Use for: creating the L1/L2/L3 knowledge base, updating it after code changes, and refactoring it when it becomes messy.
 
+Location: project-local knowledge base lives under `.opencode/knowledge-shifu/docs/`.
+
 ## Canonical Files (This Skill)
 
 Use the existing set unless you are explicitly creating a new domain:
 
-- L1: `docs/L1-index.md`
-- L2: `docs/L2/build-test.md`, `docs/L2/architecture.md`, `docs/L2/conventions.md`, `docs/L2/auth.md`, `docs/L2/api-contracts.md`, `docs/L2/knowledge-base.md`
-- L3: `docs/L3/README.md` plus optional deep refs like `docs/L3/<topic>.md` (flat)
+- L1: `L1-index.md`
+- L2: `L2/build-test.md`, `L2/architecture.md`, `L2/conventions.md`, `L2/auth.md`, `L2/api-contracts.md`, `L2/knowledge-base.md`
+- L3: `L3/README.md` plus optional deep refs like `L3/<topic>.md` (flat)
 
-Rule: do not reference additional `docs/L2/*.md` paths unless you also create them and add them to `docs/L1-index.md`.
+Rule: do not reference additional `L2/*.md` paths unless you also create them and add them to `L1-index.md`.
 
 ## Linking Rules (Exact)
 
-- L1 (`docs/L1-index.md`) -> L2: use `docs/L2/<name>.md` as link text and keep it in Domains/Keywords.
-- L2 (`docs/L2/*.md`) -> L3: use `../L3/<topic>.md` (L3 is a sibling directory).
+- L1 (`L1-index.md`) -> L2: use `L2/<name>.md` and keep it in Domains/Keywords.
+- L2 (`L2/*.md`) -> L3: use `../L3/<topic>.md` (L3 is a sibling directory).
 - L1 -> L3: avoid by default; only add a keyword route to an L2, not a deep link.
 
 ## Forbidden Patterns
 
-- Mentioning non-existent files like `docs/L2/code-organization.md` unless you create them and update `docs/L1-index.md`.
-- Creating `docs/L3/<dir>/...` subdirectories by default. Prefer flat `docs/L3/<topic>.md`.
-- Adding detailed rules into `docs/L1-index.md` (it is routing only).
+- Mentioning non-existent files like `L2/code-organization.md` unless you create them and update `L1-index.md`.
+- Creating `L3/<dir>/...` subdirectories by default. Prefer flat `L3/<topic>.md`.
+- Adding detailed rules into `L1-index.md` (it is routing only).
 
 ## Create (Bootstrap)
 
-0. Scope: this knowledge base lives inside this Skill's `docs/` only.
-1. Create (or confirm) `docs/L1-index.md` with only: domains list + keyword routing + links to L2.
-2. Create (or confirm) `docs/L2/knowledge-base.md` (this file) and keep it as the authoritative placement rules.
+0. Scope: this knowledge base lives inside the project at `.opencode/knowledge-shifu/docs/`.
+1. Create (or confirm) `.opencode/knowledge-shifu/docs/L1-index.md` with only: domains list + keyword routing + links to L2.
+2. Create (or confirm) `.opencode/knowledge-shifu/docs/L2/knowledge-base.md` (this file) and keep it as the authoritative placement rules.
 3. Confirm the canonical L2 files listed in "Canonical Files (This Skill)" exist; only add a new L2 domain if it will be reused.
-4. Create (or confirm) `docs/L3/README.md`.
+4. Create (or confirm) `.opencode/knowledge-shifu/docs/L3/README.md`.
 5. Add L3 deep references only when an L2 guide explicitly points to a specific L3 path.
 
 **Placement rules:**
@@ -45,7 +47,7 @@ Rule: do not reference additional `docs/L2/*.md` paths unless you also create th
 
 When you add/change behavior, update docs so future agents can find entry points and constraints quickly.
 
-1. Update `docs/L1-index.md` only if routing needs a new domain or new keywords.
+1. Update `.opencode/knowledge-shifu/docs/L1-index.md` only if routing needs a new domain or new keywords.
 2. Update exactly one relevant L2 domain guide:
    - Add/adjust the "Source of truth" pointer(s)
    - Add new keywords or a short "What to extract" bullet if needed
@@ -55,8 +57,8 @@ When you add/change behavior, update docs so future agents can find entry points
 
 **Non-negotiables:**
 
-- Do not invent file paths; if you reference a doc, create it at that exact `docs/` path.
-- Default L3 layout is flat: `docs/L3/<topic>.md` (avoid new subdirectories unless truly necessary).
+- Do not invent file paths; if you reference a KB doc, create it under `.opencode/knowledge-shifu/docs/` at that exact relative path.
+- Default L3 layout is flat: `L3/<topic>.md` (avoid new subdirectories unless truly necessary).
 
 **Anti-bloat guardrails:**
 
