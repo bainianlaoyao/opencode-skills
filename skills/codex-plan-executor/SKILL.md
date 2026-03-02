@@ -34,6 +34,7 @@ Do not use this skill when:
 - Absolute `plan_path` (markdown plan file)
 - `worktree_path` where changes should happen
 - Codex CLI installed and authenticated
+- `artifacts_dir` for `events.jsonl` and `final-message.txt` (must be outside repo, or in a git-ignored path)
 
 Validation requirement:
 - Confirm `plan_path` is absolute before execution.
@@ -101,6 +102,8 @@ After Codex returns `COMPLETED`, the orchestrator must:
 - Review changed files and diffs
 - Run local verification (tests, typecheck, build, lint as applicable)
 - Confirm no policy violations
+- Confirm `codex exec` exited successfully and `final-message.txt` starts with `BLOCKED:` or `COMPLETED`
+- Treat `events.jsonl` as primary execution evidence and `final-message.txt` as summary only
 - Decide: accept, request fixes via `codex exec resume`, or escalate to user
 
 Never accept solely based on Codex self-report.

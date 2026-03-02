@@ -10,9 +10,9 @@ Plan file (absolute path): `<PLAN_PATH>`
 
 ## Required skill usage
 
-1. Use `superpowers:executing-plans` to execute the plan.
+1. Use `superpowers:executing-plans` for task discipline, but do not wait for checkpoints; execute all batches consecutively unless BLOCKED.
 2. Follow `superpowers:test-driven-development` for implementation tasks.
-3. If all plan tasks complete, follow `superpowers:finishing-a-development-branch`.
+3. Do not push, merge, create PRs, or rewrite git history in this run. If a human decision is required, report `BLOCKED`.
 
 ## Execution mode
 
@@ -25,10 +25,13 @@ Plan file (absolute path): `<PLAN_PATH>`
 - Run all relevant tests for changed areas.
 - Run typecheck/build/lint when applicable.
 - Include command outputs in your final report.
+- If any required verification fails, you are BLOCKED and must include failing command output.
 
 ## Blocker protocol
 
 If blocked, stop and report exactly:
+
+Your final message must start with `BLOCKED:` on the first line (no preamble).
 
 BLOCKED: <one-line reason>
 NEEDED: <explicit decision or missing input>
@@ -39,6 +42,8 @@ Do not guess missing product or policy decisions.
 ## Completion report format
 
 If completed, report exactly:
+
+Your final message must start with `COMPLETED` on the first line (no preamble).
 
 COMPLETED
 CHANGES: <files and high-level changes>
