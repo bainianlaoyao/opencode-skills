@@ -5,6 +5,7 @@ This repository stores OpenCode/Agent Skills.
 ## Skills
 
 - `skills/knowledge-shifu/` - Progressive-disclosure project knowledge router with its own `docs/` (L1/L2/L3).
+- `skills/codex-plan-executor/` - Orchestrator reference for running full-plan autonomous execution via `codex exec` + top-level review.
 
 ## Installation (OpenCode)
 
