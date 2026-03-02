@@ -11,6 +11,8 @@ This skill teaches an orchestrator how to run one end-to-end Codex execution for
 
 **Core principle:** Delegate implementation to Codex in one full-plan run, but keep final acceptance decisions in the orchestrator.
 
+**Announce at start:** "I'm using the codex-plan-executor skill to run Codex on the full plan, then review at the top level."
+
 Do not re-implement plan execution logic in this skill.
 Codex should use **superpowers:executing-plans** directly.
 
@@ -33,6 +35,9 @@ Do not use this skill when:
 - `worktree_path` where changes should happen
 - Codex CLI installed and authenticated
 
+Validation requirement:
+- Confirm `plan_path` is absolute before execution.
+
 **REQUIRED SUB-SKILL:** Use superpowers:using-git-worktrees before running Codex.
 
 ## Execution Flow
@@ -51,23 +56,26 @@ Do not use this skill when:
 ```bash
 codex exec --full-auto --json -C "<worktree_path>" \
   --output-last-message "<artifacts_dir>/final-message.txt" \
-  "$(cat <prompt_file>)" > "<artifacts_dir>/events.jsonl"
+  - < "<prompt_file>" > "<artifacts_dir>/events.jsonl"
 ```
 
 ### Launch full-plan execution (PowerShell)
 
 ```powershell
 $prompt = Get-Content -Raw "<prompt_file>"
-codex exec --full-auto --json -C "<worktree_path>" `
+$prompt | codex exec --full-auto --json -C "<worktree_path>" `
   --output-last-message "<artifacts_dir>/final-message.txt" `
-  "$prompt" | Out-File -Encoding utf8 "<artifacts_dir>/events.jsonl"
+  - | Out-File -Encoding utf8 "<artifacts_dir>/events.jsonl"
 ```
 
 ### Resume the same Codex thread
 
 ```bash
-codex exec resume <thread_id> --full-auto --json -C "<worktree_path>" \
-  "Apply only the requested fixes and re-run verification."
+echo "Apply only the requested fixes and re-run verification." \
+  | codex exec resume --last
+
+# or explicit thread id
+codex exec resume <thread_id> "Apply only the requested fixes and re-run verification."
 ```
 
 ### Non-git working folder (rare)
@@ -128,7 +136,7 @@ CONTEXT: <file/path/command evidence>
 # 2) Execute once
 codex exec --full-auto --json -C "D:/repo/worktrees/feature-a" \
   --output-last-message "D:/repo/artifacts/final-message.txt" \
-  "$(cat D:/repo/artifacts/codex-prompt.txt)" \
+  - < "D:/repo/artifacts/codex-prompt.txt" \
   > "D:/repo/artifacts/events.jsonl"
 
 # 3) If final-message starts with BLOCKED:, escalate to user
@@ -140,16 +148,18 @@ codex exec --full-auto --json -C "D:/repo/worktrees/feature-a" \
 $prompt = Get-Content -Raw "D:/repo/artifacts/codex-prompt.txt"
 
 # 2) Execute once
-codex exec --full-auto --json -C "D:/repo/worktrees/feature-a" `
+$prompt | codex exec --full-auto --json -C "D:/repo/worktrees/feature-a" `
   --output-last-message "D:/repo/artifacts/final-message.txt" `
-  "$prompt" | Out-File -Encoding utf8 "D:/repo/artifacts/events.jsonl"
+  - | Out-File -Encoding utf8 "D:/repo/artifacts/events.jsonl"
 
 # 3) If final-message starts with BLOCKED:, escalate to user
 # 4) Else run top-level review commands in orchestrator
 ```
 
-## Integration Notes
+## Integration
 
-- **superpowers:writing-plans** creates the plan this skill executes.
-- **superpowers:executing-plans** is executed by Codex, not redefined here.
-- **superpowers:finishing-a-development-branch** should be followed by Codex when plan completion requires branch wrap-up.
+**Required workflow skills:**
+- **superpowers:using-git-worktrees** - REQUIRED: set up isolated workspace before running Codex.
+- **superpowers:writing-plans** - creates the plan this skill executes.
+- **superpowers:executing-plans** - executed by Codex; do not re-implement it here.
+- **superpowers:finishing-a-development-branch** - used by Codex when plan completion requires branch wrap-up.
