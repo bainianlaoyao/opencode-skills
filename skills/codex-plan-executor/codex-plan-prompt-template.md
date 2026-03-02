@@ -8,6 +8,10 @@ You are executing a written implementation plan in this repository.
 
 Plan file (absolute path): `<PLAN_PATH>`
 
+Execution permission profile:
+- sandbox mode: `<SANDBOX_MODE>`
+- approval policy: `<APPROVAL_POLICY>`
+
 ## Required skill usage
 
 1. Use `superpowers:executing-plans` for task discipline, but do not wait for checkpoints; execute all batches consecutively unless BLOCKED.
@@ -19,6 +23,7 @@ Plan file (absolute path): `<PLAN_PATH>`
 - Execute the full plan end-to-end in this run.
 - Do not pause for intermediate approval.
 - Respect repository conventions and safety constraints.
+- Never exceed the provided execution permission profile.
 
 ## Verification requirements
 

@@ -35,9 +35,18 @@ Do not use this skill when:
 - `worktree_path` where changes should happen
 - Codex CLI installed and authenticated
 - `artifacts_dir` for `events.jsonl` and `final-message.txt` (must be outside repo, or in a git-ignored path)
+- `sandbox_mode` for Codex (`workspace-write` default; `danger-full-access` only with explicit user approval)
+- `approval_policy` (`on-failure` default; `never` only with explicit user approval)
 
 Validation requirement:
 - Confirm `plan_path` is absolute before execution.
+
+## Permission Gate (Mandatory)
+
+Before launching Codex, the orchestrator must set and log the execution permission profile:
+- `sandbox_mode=workspace-write` and `approval_policy=on-failure` as safe defaults.
+- If user explicitly requests full permission, require explicit confirmation before using `sandbox_mode=danger-full-access` and/or `approval_policy=never`.
+- If confirmation is missing, stay on safe defaults and continue.
 
 **REQUIRED SUB-SKILL:** Use superpowers:using-git-worktrees before running Codex.
 
@@ -56,6 +65,7 @@ Validation requirement:
 
 ```bash
 codex exec --full-auto --json -C "<worktree_path>" \
+  -s <sandbox_mode> -a <approval_policy> \
   --output-last-message "<artifacts_dir>/final-message.txt" \
   - < "<prompt_file>" > "<artifacts_dir>/events.jsonl"
 ```
@@ -65,6 +75,7 @@ codex exec --full-auto --json -C "<worktree_path>" \
 ```powershell
 $prompt = Get-Content -Raw "<prompt_file>"
 $prompt | codex exec --full-auto --json -C "<worktree_path>" `
+  -s <sandbox_mode> -a <approval_policy> `
   --output-last-message "<artifacts_dir>/final-message.txt" `
   - | Out-File -Encoding utf8 "<artifacts_dir>/events.jsonl"
 ```
@@ -138,6 +149,7 @@ CONTEXT: <file/path/command evidence>
 # 1) Prepare prompt file from template
 # 2) Execute once
 codex exec --full-auto --json -C "D:/repo/worktrees/feature-a" \
+  -s workspace-write -a on-failure \
   --output-last-message "D:/repo/artifacts/final-message.txt" \
   - < "D:/repo/artifacts/codex-prompt.txt" \
   > "D:/repo/artifacts/events.jsonl"
@@ -152,6 +164,7 @@ $prompt = Get-Content -Raw "D:/repo/artifacts/codex-prompt.txt"
 
 # 2) Execute once
 $prompt | codex exec --full-auto --json -C "D:/repo/worktrees/feature-a" `
+  -s workspace-write -a on-failure `
   --output-last-message "D:/repo/artifacts/final-message.txt" `
   - | Out-File -Encoding utf8 "D:/repo/artifacts/events.jsonl"
 
