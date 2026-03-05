@@ -4,7 +4,8 @@
 
 Use for: creating the L1/L2/L3 knowledge base, updating it after code changes, and refactoring it when it becomes messy.
 
-Location: project-local knowledge base lives under `.opencode/knowledge-shifu/docs/`.
+Location: project-local knowledge base lives under `.codex/knowledge-shifu/docs/` (preferred) or `.opencode/knowledge-shifu/docs/` (fallback).
+Notation: `<kb-root>` means whichever one of these paths is active in the project.
 
 ## Canonical Files (This Skill)
 
@@ -30,11 +31,11 @@ Rule: do not reference additional `L2/*.md` paths unless you also create them an
 
 ## Create (Bootstrap)
 
-0. Scope: this knowledge base lives inside the project at `.opencode/knowledge-shifu/docs/`.
-1. Create (or confirm) `.opencode/knowledge-shifu/docs/L1-index.md` with only: domains list + keyword routing + links to L2.
-2. Create (or confirm) `.opencode/knowledge-shifu/docs/L2/knowledge-base.md` (this file) and keep it as the authoritative placement rules.
+0. Scope: this knowledge base lives inside the project at `.codex/knowledge-shifu/docs/` (preferred) or `.opencode/knowledge-shifu/docs/` (fallback).
+1. Create (or confirm) `<kb-root>/L1-index.md` with only: domains list + keyword routing + links to L2.
+2. Create (or confirm) `<kb-root>/L2/knowledge-base.md` (this file) and keep it as the authoritative placement rules.
 3. Confirm the canonical L2 files listed in "Canonical Files (This Skill)" exist; only add a new L2 domain if it will be reused.
-4. Create (or confirm) `.opencode/knowledge-shifu/docs/L3/README.md`.
+4. Create (or confirm) `<kb-root>/L3/README.md`.
 5. Add L3 deep references only when an L2 guide explicitly points to a specific L3 path.
 
 **Placement rules:**
@@ -47,7 +48,7 @@ Rule: do not reference additional `L2/*.md` paths unless you also create them an
 
 When you add/change behavior, update docs so future agents can find entry points and constraints quickly.
 
-1. Update `.opencode/knowledge-shifu/docs/L1-index.md` only if routing needs a new domain or new keywords.
+1. Update `<kb-root>/L1-index.md` only if routing needs a new domain or new keywords.
 2. Update exactly one relevant L2 domain guide:
    - Add/adjust the "Source of truth" pointer(s)
    - Add new keywords or a short "What to extract" bullet if needed
@@ -57,7 +58,7 @@ When you add/change behavior, update docs so future agents can find entry points
 
 **Non-negotiables:**
 
-- Do not invent file paths; if you reference a KB doc, create it under `.opencode/knowledge-shifu/docs/` at that exact relative path.
+- Do not invent file paths; if you reference a KB doc, create it under `<kb-root>/` at that exact relative path.
 - Default L3 layout is flat: `L3/<topic>.md` (avoid new subdirectories unless truly necessary).
 
 **Anti-bloat guardrails:**

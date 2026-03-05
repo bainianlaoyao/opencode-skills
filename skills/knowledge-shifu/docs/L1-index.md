@@ -2,7 +2,7 @@
 
 Rule: this file is index-only (links + keywords + routing). No detailed rules.
 
-Location: create this knowledge base in the project at `.opencode/knowledge-shifu/docs/`.
+Location: create this knowledge base in the project at `.codex/knowledge-shifu/docs/` (preferred) or `.opencode/knowledge-shifu/docs/` (fallback).
 
 Purpose: route to the smallest set of documents needed for a task.
 

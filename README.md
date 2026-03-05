@@ -7,6 +7,36 @@ This repository stores OpenCode/Agent Skills.
 - `skills/knowledge-shifu/` - Progressive-disclosure project knowledge router with its own `docs/` (L1/L2/L3).
 - `skills/codex-plan-executor/` - Orchestrator reference for running full-plan autonomous execution via `codex exec` + top-level review.
 
+## Installation (Codex)
+
+Install directly from GitHub using Codex's built-in skill installer script:
+
+### PowerShell
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { "$HOME/.codex" }
+python "$codexHome/skills/.system/skill-installer/scripts/install-skill-from-github.py" `
+  --repo bainianlaoyao/opencode-skills `
+  --path skills/knowledge-shifu skills/codex-plan-executor
+```
+
+### Bash
+
+```bash
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+python "$CODEX_HOME/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
+  --repo bainianlaoyao/opencode-skills \
+  --path skills/knowledge-shifu skills/codex-plan-executor
+```
+
+After install, restart Codex to pick up new skills.
+
+### Install from local checkout (PowerShell)
+
+```powershell
+.\scripts\install-codex.ps1
+```
+
 ## Installation (OpenCode)
 
 Reference style: follows the Superpowers OpenCode install flow (clone -> link into `~/.config/opencode/skills` -> restart).
@@ -96,22 +126,24 @@ New-Item -ItemType Junction -Path "$env:USERPROFILE\.config\opencode\skills\code
 
 ## Per-Project Knowledge Base (Required)
 
-`knowledge-shifu` is installed globally, but each project should own its own KB under `.opencode/knowledge-shifu/docs/`.
+`knowledge-shifu` is installed globally, but each project should own its own KB under:
+- Preferred (Codex): `.codex/knowledge-shifu/docs/`
+- Compatible fallback (OpenCode): `.opencode/knowledge-shifu/docs/`
 
 ### Initialize in a project
 
 #### macOS / Linux
 
 ```bash
-mkdir -p .opencode/knowledge-shifu
-cp -R ~/.config/opencode/opencode-skills/skills/knowledge-shifu/docs .opencode/knowledge-shifu/
+mkdir -p .codex/knowledge-shifu
+cp -R ~/.config/opencode/opencode-skills/skills/knowledge-shifu/docs .codex/knowledge-shifu/
 ```
 
 #### Windows (Command Prompt)
 
 ```cmd
-mkdir ".opencode\knowledge-shifu" 2>nul
-robocopy "%USERPROFILE%\.config\opencode\opencode-skills\skills\knowledge-shifu\docs" ".opencode\knowledge-shifu\docs" /E >nul
+mkdir ".codex\knowledge-shifu" 2>nul
+robocopy "%USERPROFILE%\.config\opencode\opencode-skills\skills\knowledge-shifu\docs" ".codex\knowledge-shifu\docs" /E >nul
 ```
 
 ### Verify
@@ -121,12 +153,12 @@ robocopy "%USERPROFILE%\.config\opencode\opencode-skills\skills\knowledge-shifu\
 ```bash
 ls -l ~/.config/opencode/skills/knowledge-shifu
 ls -l ~/.config/opencode/skills/codex-plan-executor
-ls -R .opencode/knowledge-shifu/docs
+ls -R .codex/knowledge-shifu/docs
 ```
 
 #### Windows (Command Prompt)
 
 ```cmd
 dir /AL "%USERPROFILE%\.config\opencode\skills"
-dir /S ".opencode\knowledge-shifu\docs"
+dir /S ".codex\knowledge-shifu\docs"
 ```
